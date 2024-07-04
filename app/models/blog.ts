@@ -5,6 +5,18 @@ export default class Blog extends BaseModel {
   @column({ isPrimary: true })
   declare id: string
 
+  @column()
+  declare blogTitle: string
+
+  @column()
+  declare blogMessage: string
+
+  @column()
+  declare blogLikes: number
+
+  @column()
+  declare blogComments: number
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 
