@@ -19,5 +19,6 @@ router.get('/', async () => {
 router
   .group(() => {
     router.get('blogs', [BlogController, 'getAllBlogs'])
+    router.get('blogs/:id', [BlogController, 'getBlog'])
   })
   .prefix('/api/v1')

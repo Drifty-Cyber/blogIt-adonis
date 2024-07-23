@@ -12,4 +12,16 @@ export default class BlogController {
       results: blogs,
     })
   }
+
+  async getBlog({ params: { id }, response }: HttpContext) {
+    // console.log(id)
+    const blog = await Blog.query().where('id', id)
+
+    return response.ok({
+      status: 'Success',
+      message: 'Fetched Blog successfully',
+      statusCode: 200,
+      results: blog,
+    })
+  }
 }
