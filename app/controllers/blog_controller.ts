@@ -24,4 +24,6 @@ export default class BlogController {
       results: blog,
     })
   }
+
+  async createBlog({ request, response }: HttpContext) {}
 }
