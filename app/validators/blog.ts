@@ -17,4 +17,11 @@ export const createBlogValidator = vine.compile(
  * Validator to validate the payload when updating
  * an existing blog.
  */
-export const updateBlogValidator = vine.compile(vine.object({}))
+export const updateBlogValidator = vine.compile(
+  vine.object({
+    blogTitle: vine.string().trim(),
+    blogMessage: vine.string().trim().escape(),
+    blogLikes: vine.number(),
+    numBlogComments: vine.number(),
+  })
+)
