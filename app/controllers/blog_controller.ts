@@ -1,4 +1,5 @@
 import Blog from '#models/blog'
+import { createBlogValidator } from '#validators/blog'
 import type { HttpContext } from '@adonisjs/core/http'
 
 export default class BlogController {
@@ -25,5 +26,31 @@ export default class BlogController {
     })
   }
 
-  async createBlog({ request, response }: HttpContext) {}
+  async createBlog({ request, response }: HttpContext) {
+    const { blogTitle, blogMessage, blogLikes, numBlogComments } =
+      await request.validateUsing(createBlogValidator)
+
+    let blog = await Blog.query().where('title', blogTitle).first()
+
+    if (!blog) {
+      blog = new Blog()
+      blog.blogTitle = blogTitle
+      blog.blogMessage = blogMessage
+      blog.blogLikes = blogLikes
+      blog.numBlogComments = numBlogComments
+      await blog.save()
+
+      return response.created({
+        status: 'Created',
+        message: 'Created Blog successfully',
+        statusCode: 201,
+      })
+    } else {
+      return response.conflict({
+        status: 'Conflict',
+        statusCode: 409,
+        message: 'Election already exists',
+      })
+    }
+  }
 }
