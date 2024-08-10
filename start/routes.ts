@@ -21,6 +21,7 @@ router
   .group(() => {
     router.get('blogs', [BlogController, 'getAllBlogs'])
     router.get('blogs/:id', [BlogController, 'getBlog'])
+    router.post('blogs', [BlogController, 'createBlog'])
   })
   .prefix('/api/v1')
   .use(throttle)
